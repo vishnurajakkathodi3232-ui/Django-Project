@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  body {
+    background-color: #3e2723;
+    color: #635636ff;
+  }
+  .dashboard-container {
+    margin-top: 6rem;
+    text-align: center;
+  }
+  .welcome-box {
+    background: rgba(255, 235, 204, 0.1);
+    border: 1px solid rgba(255, 204, 128, 0.3);
+    border-radius: 15px;
+    padding: 3rem;
+    box-shadow: 0 0 20px rgba(255, 204, 128, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+  .welcome-box:hover {
+    box-shadow: 0 0 30px rgba(255, 204, 128, 0.4);
+  }
+  .welcome-title {
+    font-weight: 700;
+    color: #72572dff;
+  }
+  .subtext {
+    color: #56411fff;
+    font-size: 1.1rem;
+    margin-top: 10px;
+  }
+  .info-section {
+    margin-top: 3rem;
+  }
+  .glow-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 204, 128, 0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 0 15px rgba(255, 204, 128, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .glow-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(255, 204, 128, 0.5);
+  }
+  .glow-card h4 {
+    color: #6c5128ff;
+    font-weight: 600;
+  }
+  .btn-glow {
+    background: linear-gradient(90deg, #8d6e63, #9d7d4cff);
+    color: #2e1510;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    padding: 10px 25px;
+    box-shadow: 0 0 15px rgba(255, 204, 128, 0.3);
+    transition: all 0.3s ease;
+  }
+  .btn-glow:hover {
+    box-shadow: 0 0 30px rgba(131, 101, 55, 0.6);
+    transform: translateY(-3px);
+  }
+</style>
+<div class="container dashboard-container">
+  <div class="welcome-box">
+    <h1 class="welcome-title">Welcome, {{ user.username }} 👋</h1>
+  </div>
+  <div class="row info-section justify-content-center mt-5">
+    <div class="col-md-4 mb-4">
+      <div class="glow-card">
+        <h4>Your Profile</h4>
+        <p class="text-light mt-3">View and update your account details easily.</p>
+        <a href="{% url 'store:view_profile' %}" class="btn btn-sm btn-glow mt-2">Manage Profile</a>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="glow-card">
+        <h4>Your Orders</h4>
+        <p class="text-light mt-3">Track all your recent orders and order history.</p>
+        <a href="{% url 'store:my_orders' %}" class="btn btn-sm btn-glow mt-2">View Orders</a>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="glow-card">
+        <h4>Explore Store</h4>
+        <p class="text-light mt-3">Discover new arrivals and trending products.</p>
+        <a href="{% url 'store:products' %}" class="btn btn-sm btn-glow mt-2">Go to Store</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

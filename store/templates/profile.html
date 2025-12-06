@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+    <div class="card-body">
+      <h2 class="card-title mb-4 fw-bold">User Profile</h2>
+      <p><strong>Username:</strong> {{ profile.user.username }}</p>
+      <p><strong>Email:</strong> {{ profile.user.email }}</p>
+      <p><strong>Phone:</strong> {{ profile.phone }}</p>
+      <p><strong>Address:</strong> {{ profile.address }}</p>
+      <a href="{% url 'store:edit_profile' %}" class="btn btn-primary mt-3">Edit Profile</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

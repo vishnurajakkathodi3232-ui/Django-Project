@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="cart-container my-5">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold cart-title">🛒 Your Shopping Cart</h2>
+    <p class="text-muted">Manage the products you wish to purchase</p>
+  </div>
+
+  {% if items %}
+    <div class="table-responsive">
+      <table class="table cart-table align-middle text-center">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price (₹)</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+          <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.product.price }}</td>
+            <td>
+              <form action="{% url 'store:update_cart' item.id %}" method="POST" class="d-inline-flex justify-content-center">
+                {% csrf_token %}
+                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" 
+                  class="form-control form-control-sm quantity-input text-center me-2" style="width: 70px;">
+                <button class="btn btn-sm btn-warning fw-semibold shadow-sm">Update</button>
+              </form>
+            </td>
+            <td>₹{{ item.subtotal }}</td>
+            <td>
+              <a href="{% url 'store:remove_from_cart' item.id %}" class="btn btn-sm btn-danger fw-semibold shadow-sm">
+                Remove
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cart-summary text-end mt-4">
+      <h4 class="fw-bold">Total: <span class="text-success">₹{{ total }}</span></h4>
+      <button class="btn btn-lg btn-success fw-semibold mt-3 shadow checkout-btn">
+        Proceed to Checkout
+      </button>
+    </div>
+
+  {% else %}
+    <div class="empty-cart text-center py-5">
+      <img src="{% static 'images/empty_cart.png' %}" alt="Empty Cart" width="180" class="mb-3 opacity-75">
+      <h4 class="fw-bold text-warning">Your cart is empty!</h4>
+      <p class="text-muted">
+        Browse our 
+        <a href="{% url 'store:products' %}" class="text-decoration-none text-info fw-semibold">
+          products
+        </a> 
+        to add items.
+      </p>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+  body {
+    background: linear-gradient(180deg, #3b2f2f, #5a3e36, #7c4b3a);
+    color: #fff7e6;
+  }
+
+  .cart-title {
+    color: #ffd966;
+    text-shadow: 1px 1px 5px #4b2e19;
+  }
+
+  .cart-table {
+    background-color: rgba(255, 245, 230, 0.9);
+    color: #3d2a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(85, 46, 23, 0.4);
+  }
+
+  .cart-table th {
+    background-color: #6b3e26;
+    color: #fff7e6;
+  }
+
+  .cart-table tr:hover {
+    background-color: rgba(250, 235, 215, 0.8);
+    transition: 0.3s;
+  }
+
+  .quantity-input {
+    border: 2px solid #b37a44;
+    background: #fffaf0;
+  }
+
+  .btn-warning {
+    background-color: #ffb84d;
+    border-color: #cc9a33;
+  }
+
+  .btn-warning:hover {
+    background-color: #ff9933;
+    color: white;
+  }
+
+  .btn-danger {
+    background-color: #cc4c4c;
+    border-color: #a94442;
+  }
+
+  .btn-danger:hover {
+    background-color: #b33a3a;
+  }
+
+  .checkout-btn {
+    background-color: #4b2e19;
+    border: none;
+    color: #ffd966;
+  }
+
+  .checkout-btn:hover {
+    background-color: #3b2413;
+    color: #fff2cc;
+    transform: translateY(-2px);
+    transition: 0.3s ease;
+  }
+
+  .empty-cart {
+    background: rgba(255, 245, 230, 0.15);
+    border-radius: 15px;
+  }
+
+  .cart-summary {
+    border-top: 2px dashed #b37a44;
+    padding-top: 10px;
+  }
+</style>
+{% endblock %}

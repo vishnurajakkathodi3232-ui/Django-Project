@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .admin-dashboard {
+        max-width: 1000px;
+        margin: 3rem auto;
+        background: #ffffffdd;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(60, 40, 30, 0.2);
+    }
+    .admin-dashboard h2 {
+        color: #4e342e;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 700;
+    }
+    .admin-stats {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
+        color: #3e2723;
+    }
+    .admin-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+    .admin-card {
+        background: #f3e5f5;
+        padding: 1.8rem;
+        border-radius: 12px;
+        text-align: center;
+        transition: 0.3s;
+        font-weight: 600;
+        color: #4e342e;
+        text-decoration: none;
+        display: block;
+    }
+    .admin-card:hover {
+        background: #d7ccc8;
+        transform: translateY(-3px);
+    }
+    .logout-btn {
+        display: block;
+        margin: 2rem auto 0;
+        width: fit-content;
+        background: #8d6e63;
+        border: none;
+        padding: 0.7rem 1.2rem;
+        color: white;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .logout-btn:hover {
+        background: #6d4c41;
+    }
+</style>
+
+<div class="admin-dashboard">
+    <h2>Store Admin Dashboard</h2>
+    <div class="admin-stats">
+        <span>Products: {{ product_count }}</span>
+        <span>Orders: {{ order_count }}</span>
+        <span>Admin: {{ admin_user }}</span>
+    </div>
+
+    <div class="admin-links">
+        <a href="{% url 'storeadmin:admin_add_product' %}" class="admin-card">Add Product</a>
+        <a href="{% url 'storeadmin:admin_products' %}" class="admin-card">Manage Products</a>
+        <a href="{% url 'storeadmin:admin_orders' %}" class="admin-card">View Orders</a>
+    </div>
+
+    <a href="{% url 'storeadmin:admin_logout' %}" class="logout-btn">Logout</a>
+</div>
+{% endblock %}

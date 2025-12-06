@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body {
+        background: #f5f5f5;
+    }
+    .admin-nav {
+        background: #4e342e;
+        padding: 15px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0;
+    }
+    .admin-nav a {
+        color: #ffe0b2;
+        margin-left: 20px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .admin-nav a.active, .admin-nav a:hover {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+    h2 {
+        text-align: center;
+        color: #4e342e;
+        margin-top: 30px;
+    }
+    .add-btn {
+        background: #6d4c41;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
+    .add-btn:hover {
+        background: #4e342e;
+    }
+    .table-container {
+        margin: 30px auto;
+        width: 95%;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    thead {
+        background: #d7ccc8;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+    }
+    .img-thumb {
+        max-width: 56px;
+        max-height: 46px;
+        border-radius: 5px;
+        background: #eee;
+    }
+    tr:hover {
+        background: #f7f7f7;
+    }
+    .table-btn {
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-right: 5px;
+    }
+    .edit {
+        background: #4caf50;
+        color: white;
+    }
+    .edit:hover {
+        background: #3e8e41;
+    }
+    .delete {
+        background: #e53935;
+        color: white;
+    }
+    .delete:hover {
+        background: #c62828;
+    }
+</style>
+
+<div class="admin-nav mb-0">
+    <div><strong>Store Admin Panel</strong></div>
+    <div>
+        <a href="{% url 'storeadmin:admin_dashboard' %}">Dashboard</a>
+        <a href="{% url 'storeadmin:admin_products' %}" class="active">Products</a>
+        <a href="{% url 'storeadmin:admin_orders' %}">Orders</a>
+        <a href="{% url 'storeadmin:admin_logout' %}">Logout</a>
+    </div>
+</div>
+<h2>Products List</h2>
+<div style="text-align: right; margin: 20px 50px;">
+    <a href="{% url 'storeadmin:admin_add_product' %}" class="add-btn">+ Add New Product</a>
+</div>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price (₹)</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for p in products %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    {% if p.image_url %}
+                        <img src="{{ p.image_url }}" alt="{{ p.name }}" class="img-thumb">
+                    {% else %}
+                        <span style="color:#bbb;">No Img</span>
+                    {% endif %}
+                </td>
+                <td>{{ p.name }}</td>
+                <td>{{ p.description|truncatechars:50 }}</td>
+                <td>{{ p.price }}</td>
+                <td>{{ p.stock }}</td>
+                <td>
+                    <a href="{% url 'storeadmin:admin_edit_product' p.id %}" class="table-btn edit">Edit</a>
+                    <a href="{% url 'storeadmin:admin_delete_product' p.id %}" class="table-btn delete"
+                       onclick="return confirm('Delete this product?');">Delete</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="7" style="text-align:center;">No products available</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

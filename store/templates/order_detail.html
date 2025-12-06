@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="card mx-auto" style="max-width:700px;">
+    <div class="card-body">
+      <h2 class="mb-4 fw-bold text-center">Order #{{ order.id }} Details</h2>
+      <p><strong>Status:</strong> {{ order.status }}</p>
+      <p><strong>Date:</strong> {{ order.order_date|date:"d M Y H:i" }}</p>
+      <h5 class="mt-4 mb-3">Ordered Products:</h5>
+      <table class="table table-bordered align-middle">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Unit Price (₹)</th>
+            <th>Quantity</th>
+            <th>Subtotal (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+          <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.product.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.product.price|mul:item.quantity }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="text-end fw-bold mt-3">
+       
+      </div>
+      <a href="{% url 'store:my_orders' %}" class="btn btn-secondary mt-3">Back to My Orders</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

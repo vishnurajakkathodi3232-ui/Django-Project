@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Products | EntryKart{% endblock %}
+
+{% block content %}
+<style>
+body {
+  background: #2e1a15;
+  color: #fbe9e7;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.products-container {
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+}
+
+h2 {
+  color: #ffb74d;
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: #4e342e;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 204, 128, 0.2);
+  padding: 1.8rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.product-name {
+  font-size: 1.3rem;
+  color: #ffe082;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.product-price {
+  color: #ffcc80;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+}
+
+.product-desc {
+  font-size: 0.95rem;
+  color: #fff3e0;
+  line-height: 1.5;
+}
+
+/* Add to cart styling */
+.add-to-cart-form {
+  margin-top: 1rem;
+}
+
+.qty-input {
+  width: 70px;
+  border-radius: 6px;
+  border: 1px solid #ffcc80;
+  background: #5d4037;
+  color: #fff8e1;
+  text-align: center;
+  padding: 4px;
+  margin-right: 8px;
+}
+
+.btn-add {
+  background: linear-gradient(90deg, #a1887f, #ffb74d);
+  border: none;
+  color: #2e1a15;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-add:hover {
+  background: linear-gradient(90deg, #ffb74d, #ffe082);
+  transform: translateY(-2px);
+}
+</style>
+
+<div class="products-container">
+  <h2>Available Products</h2>
+  <div class="products-grid">
+    {% for product in products %}
+      <div class="product-card">
+        <div class="product-name">{{ product.name }}</div>
+        <div class="product-price">₹{{ product.price }}</div>
+        <div class="product-desc">{{ product.description }}</div>
+
+        <!-- ✅ Add to Cart Form -->
+        <form class="add-to-cart-form" method="POST" action="{% url 'store:add_to_cart' product.id %}">
+          {% csrf_token %}
+          <input type="number" name="quantity" min="1" value="1" class="qty-input" required>
+          <button type="submit" class="btn-add">🛒 Add to Cart</button>
+        </form>
+      </div>
+    {% empty %}
+      <p>No products available at the moment.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

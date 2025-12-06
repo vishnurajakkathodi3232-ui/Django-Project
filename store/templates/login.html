@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  body {
+    background-color: #3e2723; /* dark chocolate tone */
+  }
+
+  .login-container {
+    margin-top: 8rem;
+  }
+
+  .glow-card {
+    background: rgba(255, 235, 204, 0.07);
+    border: 1px solid rgba(255, 204, 128, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 204, 128, 0.1);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .glow-card:hover {
+    box-shadow: 0 0 25px rgba(255, 204, 128, 0.3);
+  }
+
+  .login-title {
+    color: #906d37ff;
+    
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .form-label {
+    color: #ffe9b3;
+    font-weight: 500;
+  }
+
+  .form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #ffb74d;
+    color: #fff8e1;
+    border-radius: 10px;
+  }
+
+  .form-control:focus {
+    border-color: #ffe082;
+    box-shadow: 0 0 10px rgba(255, 204, 128, 0.4);
+  }
+
+  .btn-glow {
+    background: linear-gradient(90deg, #8d6e63, #ffb74d);
+    color: #2e1510;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(255, 204, 128, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .btn-glow:hover {
+    background: linear-gradient(90deg, #ffcc80, #ffb74d);
+    box-shadow: 0 0 30px rgba(255, 204, 128, 0.6);
+    transform: translateY(-3px);
+  }
+</style>
+
+<div class="container login-container">
+  <div class="col-md-6 offset-md-3">
+    <div class="glow-card p-5">
+      <h2 class="text-center login-title mb-4">Login to Your Account </h2>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="text" name="username" class="form-control" placeholder="Enter your username" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn btn-glow w-100 mt-3">Login</button>
+      </form>
+      <p class="text-center mt-4" style="color:#ffe9b3;">Don't have an account?
+        <a href="{% url 'store:register' %}" style="color:#ffb74d; text-decoration:none; font-weight:600;">Register Here</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

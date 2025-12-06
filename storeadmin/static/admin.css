@@ -1,0 +1,112 @@
+/* ============================
+   GLOBAL ADMIN UI THEME
+   ============================ */
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f3f7;
+    margin: 0;
+    padding: 0;
+}
+
+/* NAVBAR */
+.admin-nav {
+    background: #1e1e2f;
+    color: #fff;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-nav a {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.admin-nav a:hover {
+    opacity: 0.7;
+}
+
+/* CARD */
+.card {
+    background: #fff;
+    width: 90%;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* HEADINGS */
+h2 {
+    text-align: center;
+    color: #1e1e2f;
+    margin-bottom: 20px;
+}
+
+/* FORM */
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+button {
+    width: 100%;
+    background: #1e1e2f;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #343454;
+}
+
+/* TABLE */
+table {
+    width: 95%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th {
+    background: #1e1e2f;
+    color: #fff;
+    padding: 12px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+    background: #f1f1f1;
+}
+
+/* LINKS */
+.action-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.edit-btn { background: #4CAF50; }
+.delete-btn { background: #D9534F; }
+.add-btn { background: #0275D8; }

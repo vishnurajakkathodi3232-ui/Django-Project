@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .hero-section {
+    text-align: center;
+    margin-top: 8rem;
+    color: #4e342e;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #5d4037;
+  }
+
+  .hero-text {
+    margin-top: 1.5rem;
+    color: #6d4c41;
+    font-size: 1.15rem;
+    letter-spacing: 0.4px;
+  }
+
+  .hero-btn {
+    margin-top: 2.5rem;
+  }
+
+  .btn-shop,
+  .btn-auth {
+    background: linear-gradient(90deg, #a1887f, #ffcc80);
+    border: none;
+    color: #3e2723;
+    font-weight: 600;
+    padding: 0.8rem 1.8rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 3px 6px rgba(121, 85, 72, 0.2);
+    display: inline-block;
+    margin: 0.4rem;
+  }
+
+  .btn-shop:hover,
+  .btn-auth:hover {
+    background: linear-gradient(90deg, #ffb74d, #ffe082);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(121, 85, 72, 0.25);
+  }
+
+  .sparkle {
+    color: #ffb74d;
+    font-weight: 700;
+  }
+
+  .auth-btns {
+    margin-top: 1.5rem;
+  }
+</style>
+
+<div class="hero-section">
+  <h1 class="hero-title">Welcome to <span class="sparkle">EntryKart</span> 🛍️</h1>
+  <p class="hero-text">Discover amazing products, shop smart, and explore your favorites with ease.</p>
+
+  <div class="hero-btn">
+    <a href="{% url 'store:products' %}" class="btn-shop">Explore Products</a>
+  </div>
+
+  <!-- 🔥 Login & Register Buttons -->
+  {% if not user.is_authenticated %}
+  <div class="auth-btns">
+    <a href="{% url 'login' %}" class="btn-auth">Login</a>
+    <a href="{% url 'store:register' %}" class="btn-auth">Register</a>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}
